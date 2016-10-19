@@ -1,0 +1,19 @@
+version: '2'
+services:
+  postgres:
+    image: job/postgres
+    build: ./postgres
+    ports:
+     - "5433:5432"
+    volumes:
+     - postgres-volume-db:/var/lib/postgresql/data/     
+  web:
+    build: .
+    image: job/app
+    ports:
+     - "8080:8080"
+    links:
+     - postgres
+volumes:
+    postgres-volume-db:
+      driver: local
